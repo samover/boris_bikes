@@ -1,10 +1,4 @@
 
-
-#
-# As a member of the public
-# So I can decide whether to use the docking station
-# I want to see a bike that has been docked
-#
 # As a member of the public,
 # So that I am not confused and charged unnecessarily,
 # I'd like docking stations not to release bikes when there are none available.
@@ -44,12 +38,13 @@
 
 describe 'User Stories' do
 
+  let(:station) { Station.new }
+  let(:bike) { Bike.new }
+
   # As a person,
   # So that I can use a bike,
   # I'd like a docking station to release a bike.
   it 'so that I can use a bike, a station releases a bike' do
-    station = Station.new
-    bike = Bike.new
     station.dock bike
     expect(station.release_bike).to equal bike
   end
@@ -58,7 +53,6 @@ describe 'User Stories' do
   # So that I can use a good bike,
   # I'd like to see if a bike is working
   it 'so that I can use a good bike, I like to see it is working' do
-    bike = Bike.new
     expect(bike).to be_working
   end
 
@@ -66,10 +60,15 @@ describe 'User Stories' do
   # So I can return bikes I've hired
   # I want to dock my bike at the docking station
   it 'so that I can return a bike, I want to dock by bike at a station' do
-    station = Station.new
-    bike = Bike.new
+    expect { station.dock bike }.not_to raise_error
+  end
+
+  # As a member of the public
+  # So I can decide whether to use the docking station
+  # I want to see a bike that has been docked
+  it 'so that I can decide whether to use the station,
+      I want to see a bike that has been docked' do
     station.dock bike
     expect(station.bikes).to include bike
   end
-
 end

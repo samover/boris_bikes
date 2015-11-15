@@ -13,8 +13,7 @@ describe Station do
 
   context '#dock' do
     it 'docks a bike' do
-      station.dock bike
-      expect(station.bikes).to include bike
+      expect { station.dock bike }.not_to raise_error
     end
   end
 end

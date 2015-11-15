@@ -1,10 +1,3 @@
-
-
-#
-# As a member of the public,
-# So that I reduce the chance of getting a broken bike in future,
-# I'd like to report a bike as broken when I return it.
-#
 # As a maintainer of the system,
 # So that I can manage broken bikes and not disappoint users,
 # I'd like docking stations not to release broken bikes.
@@ -87,5 +80,13 @@ describe 'User Stories' do
   it 'so that I can customize new station, I can specify another capacity' do
     station = Station.new(capacity: 50)
     expect(station.read_capacity).to eq 50
+  end
+
+  # As a member of the public,
+  # So that I reduce the chance of getting a broken bike in future,
+  # I'd like to report a bike as broken when I return it.
+  it 'as a user, I would like to report a broken bike' do
+    station.dock bike.report_broken
+    expect(station.bikes.last).not_to be_working
   end
 end

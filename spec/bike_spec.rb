@@ -7,4 +7,11 @@ describe Bike do
       expect(bike).to be_working
     end
   end
+
+  context '#report_broken' do
+    it 'can be reported as broken' do
+      bike.report_broken
+      expect(bike).not_to be_working
+    end
+  end
 end

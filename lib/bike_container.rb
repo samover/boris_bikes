@@ -17,6 +17,11 @@ module BikeContainer
     container << bike
   end
 
+  def remove_bike
+    fail "Cannot release bike: none available in #{self.class.name}" if empty?
+    bikes.pop
+  end
+
 
   private
   attr_reader :docker, :container
@@ -25,4 +30,7 @@ module BikeContainer
     bikes.length >= capacity
   end
 
+  def empty?
+    bikes.empty?
+  end
 end

@@ -22,10 +22,29 @@ shared_examples_for BikeContainer do
 
     it 'raises error when container is full' do
       bike_container.capacity.times { bike_container.add bike }
-      message = "Cannot dock bike: #{self.class.name} is full to capacity"
-      expect { bike_container.add bike }.to raise_error
+      message = "Cannot dock bike: #{described_class.name} is full to capacity"
+      expect { bike_container.add bike }.to raise_error message
     end
   end
 
+  context '#remove_bike' do
+
+    before(:each) { bike_container.add bike }
+
+    it 'returns a bike' do
+      expect(bike_container.remove_bike).to eq bike
+    end
+
+    it 'removes the bike from the collection' do
+      bike_container.remove_bike
+      expect(bike_container.bikes).to be_empty
+    end
+
+    it 'raises error when none available' do
+      message = "Cannot release bike: none available in #{described_class.name}"
+      bike_container.remove_bike
+      expect { bike_container.remove_bike }.to raise_error message
+    end
+  end
 
 end

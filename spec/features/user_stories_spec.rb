@@ -1,6 +1,4 @@
-# As a maintainer of the system,
-# So that I can manage broken bikes and not disappoint users,
-# I'd like docking stations not to release broken bikes.
+
 #
 # As a maintainer of the system,
 # So that I can manage broken bikes and not disappoint users,
@@ -19,6 +17,11 @@ describe 'User Stories' do
 
   let(:station) { Station.new }
   let(:bike) { Bike.new }
+  let(:broken_bike) { Bike.new}
+
+  before do
+    broken_bike.report_broken
+  end
 
   # As a person,
   # So that I can use a bike,
@@ -55,7 +58,7 @@ describe 'User Stories' do
   # So that I am not confused and charged unnecessarily,
   # I'd like docking stations not to release bikes when there are none available.
   it 'so that I am informed, I would like a message when no bikes are available' do
-    expect { station.release_bike }.to raise_error 'Cannot release bike: none availble'
+    expect { station.release_bike }.to raise_error 'Cannot release bike: none available'
   end
 
   # As a maintainer of the system,
@@ -86,7 +89,17 @@ describe 'User Stories' do
   # So that I reduce the chance of getting a broken bike in future,
   # I'd like to report a bike as broken when I return it.
   it 'as a user, I would like to report a broken bike' do
-    station.dock bike.report_broken
+    station.dock broken_bike
     expect(station.bikes.last).not_to be_working
+  end
+
+  # As a maintainer of the system,
+  # So that I can manage broken bikes and not disappoint users,
+  # I'd like docking stations not to release broken bikes.
+  it 'so not to disappoint users, stations do not release broken bikes' do
+    station.dock broken_bike
+    expect { station.release_bike }.to raise_error 'Cannot release bike: none available'
+    station.dock bike
+    expect(station.release_bike).to be_working
   end
 end

@@ -13,8 +13,8 @@ class Station
   end
 
   def release_bike
-    fail 'Cannot release bike: none availble' if empty?
-    docker.pop
+    fail 'Cannot release bike: none available' if empty?
+    working_bikes.pop
   end
 
   def bikes
@@ -29,11 +29,15 @@ class Station
   attr_reader :docker, :capacity
 
   def empty?
-    bikes.empty?
+    working_bikes.empty?
   end
 
   def full?
     bikes.length >= read_capacity
+  end
+
+  def working_bikes
+    bikes.select { |bike| bike.working? }
   end
 
 end

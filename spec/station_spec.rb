@@ -1,7 +1,7 @@
 describe Station do
 
   subject(:station) { described_class.new }
-  let(:bike) { double(:bike) }
+  let(:bike) { double(:bike, working?: true) }
 
   context '#initialize' do
       it 'has a set capacity' do
@@ -26,7 +26,7 @@ describe Station do
     end
 
     it 'raises error when none available' do
-      expect { station.release_bike }.to raise_error 'Cannot release bike: none availble'
+      expect { station.release_bike }.to raise_error 'Cannot release bike: none available'
     end
   end
 

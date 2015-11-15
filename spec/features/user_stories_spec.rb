@@ -1,6 +1,4 @@
-# As a person,
-# So that I can use a bike,
-# I'd like a docking station to release a bike.
+
 #
 # As a person,
 # So that I can use a good bike,
@@ -49,3 +47,17 @@
 # As a maintainer of the system,
 # So that I can manage broken bikes and not disappoint users,
 # I'd like vans to collect working bikes from garages and distribute them to docking stations.
+
+
+describe 'User Stories' do
+
+  # As a person,
+  # So that I can use a bike,
+  # I'd like a docking station to release a bike.
+  it 'so that I can use a bike, a station releases a bike' do
+    station = Station.new
+    bike = Bike.new
+    station.dock bike
+    expect(station.release_bike).to equal bike
+  end
+end

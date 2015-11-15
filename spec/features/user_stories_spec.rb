@@ -1,9 +1,4 @@
 
-#
-# As a maintainer of the system,
-# So that I can manage broken bikes and not disappoint users,
-# I'd like docking stations to accept returning bikes (broken or not).
-#
 # As a maintainer of the system,
 # So that I can manage broken bikes and not disappoint users,
 # I'd like vans to take broken bikes from docking stations and deliver them to garages to be fixed.
@@ -89,8 +84,8 @@ describe 'User Stories' do
   # So that I reduce the chance of getting a broken bike in future,
   # I'd like to report a bike as broken when I return it.
   it 'as a user, I would like to report a broken bike' do
-    station.dock broken_bike
-    expect(station.bikes.last).not_to be_working
+    bike.report_broken
+    expect(bike).not_to be_working
   end
 
   # As a maintainer of the system,
@@ -101,5 +96,13 @@ describe 'User Stories' do
     expect { station.release_bike }.to raise_error 'Cannot release bike: none available'
     station.dock bike
     expect(station.release_bike).to be_working
+  end
+
+  # As a maintainer of the system,
+  # So that I can manage broken bikes and not disappoint users,
+  # I'd like docking stations to accept returning bikes (broken or not).
+  it 'so that I can manage broken bikes, station accepts broken ones' do
+    station.dock broken_bike
+    expect(station.bikes).to include broken_bike
   end
 end

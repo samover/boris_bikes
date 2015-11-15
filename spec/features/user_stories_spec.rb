@@ -1,9 +1,4 @@
 
-#
-# As a person,
-# So that I can use a good bike,
-# I'd like to see if a bike is working
-#
 # As a member of the public
 # So I can return bikes I've hired
 # I want to dock my bike at the docking station
@@ -60,4 +55,13 @@ describe 'User Stories' do
     station.dock bike
     expect(station.release_bike).to equal bike
   end
+
+  # As a person,
+  # So that I can use a good bike,
+  # I'd like to see if a bike is working
+  it 'so that I can use a good bike, I like to see it is working' do
+    bike = Bike.new
+    expect(bike).to be_working
+  end
+
 end

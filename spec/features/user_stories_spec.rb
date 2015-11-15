@@ -1,8 +1,3 @@
-
-# As a member of the public,
-# So that I am not confused and charged unnecessarily,
-# I'd like docking stations not to release bikes when there are none available.
-#
 # As a maintainer of the system,
 # So that I can control the distribution of bikes,
 # I'd like docking stations not to accept more bikes than their capacity.
@@ -71,4 +66,6 @@ describe 'User Stories' do
     station.dock bike
     expect(station.bikes).to include bike
   end
+
+  
 end

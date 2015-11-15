@@ -16,4 +16,11 @@ describe Station do
       expect { station.dock bike }.not_to raise_error
     end
   end
+
+  context '#bikes' do
+    it 'shows the docked bikes' do
+      station.dock bike
+      expect(station.bikes).to include bike
+    end
+  end
 end

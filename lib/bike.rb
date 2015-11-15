@@ -13,6 +13,11 @@ class Bike
     self
   end
 
+  def report_working
+    self.working_order = true
+    self
+  end
+
   private
   attr_accessor :working_order
 end

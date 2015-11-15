@@ -2,6 +2,7 @@ describe Station do
 
   subject(:station) { described_class.new }
   let(:bike) { double(:bike, working?: true) }
+  let(:broken_bike) { double(:bike, working?: false) }
 
   context '#initialize' do
       it 'has a set capacity' do
@@ -45,6 +46,14 @@ describe Station do
     it 'shows the docked bikes' do
       station.dock bike
       expect(station.bikes).to include bike
+    end
+  end
+
+  context '#release_broken_bikes' do
+    it 'releases all the broken bikes' do
+      5.times { station.dock broken_bike }
+      broken_bikes = station.bikes
+      expect(station.release_broken_bikes).to eq broken_bikes
     end
   end
 end

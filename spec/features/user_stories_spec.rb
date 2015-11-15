@@ -1,7 +1,5 @@
 
-# As a maintainer of the system,
-# So that I can manage broken bikes and not disappoint users,
-# I'd like vans to take broken bikes from docking stations and deliver them to garages to be fixed.
+
 #
 # As a maintainer of the system,
 # So that I can manage broken bikes and not disappoint users,
@@ -13,6 +11,8 @@ describe 'User Stories' do
   let(:station) { Station.new }
   let(:bike) { Bike.new }
   let(:broken_bike) { Bike.new}
+  let(:van) { Van.new }
+  let(:garage) { Garage.new }
 
   before do
     broken_bike.report_broken
@@ -104,5 +104,25 @@ describe 'User Stories' do
   it 'so that I can manage broken bikes, station accepts broken ones' do
     station.dock broken_bike
     expect(station.bikes).to include broken_bike
+  end
+
+  # As a maintainer of the system,
+  # So that I can manage broken bikes and not disappoint users,
+  # I'd like vans to take broken bikes from docking stations and deliver them to garages to be fixed.
+  it 'so to manage broken bikes, a van can pick up broken bikes and deliver them to garage to be fixed' do
+    5.times { station.dock Bike.new.report_broken }
+    5.times { station.dock Bike.new }
+    working_bikes = station.bikes.select { |bike| bike.working? }
+    broken_bikes = station.bikes - working_bikes
+
+    van.collect_broken_bikes(station)
+    expect(van.bikes).to eq broken_bikes
+    expect(station.bikes).to eq working_bikes
+
+    van.deliver_broken_bikes(garage)
+    expect(van.bikes).to be_empty
+    expect(garage.bikes).to eq broken_bikes
+    garage.fix_bikes
+    garage.bikes.each { |bike| expect(bike).to be_working }
   end
 end

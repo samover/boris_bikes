@@ -17,8 +17,18 @@ class Station
     working_bikes.pop
   end
 
+  def release_broken_bikes
+    to_be_fixed = broken_bikes
+    remove_broken to_be_fixed
+    to_be_fixed
+  end
+
   def bikes
     docker
+  end
+
+  def remove_broken bikes
+    self.docker -= bikes
   end
 
   def read_capacity
@@ -26,7 +36,8 @@ class Station
   end
 
   private
-  attr_reader :docker, :capacity
+  attr_reader :capacity
+  attr_accessor :docker
 
   def empty?
     working_bikes.empty?
@@ -38,6 +49,10 @@ class Station
 
   def working_bikes
     bikes.select { |bike| bike.working? }
+  end
+
+  def broken_bikes
+    bikes.select { |bike| !bike.working? }
   end
 
 end

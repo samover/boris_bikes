@@ -1,5 +1,7 @@
 require 'station'
 require 'bike'
+require 'van'
+require 'garage'
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|

@@ -1,7 +1,4 @@
-# As a maintainer of the system,
-# So that I can control the distribution of bikes,
-# I'd like docking stations not to accept more bikes than their capacity.
-#
+
 # As a system maintainer,
 # So that I can plan the distribution of bikes,
 # I want a docking station to have a default capacity of 20 bikes.
@@ -72,5 +69,14 @@ describe 'User Stories' do
   # I'd like docking stations not to release bikes when there are none available.
   it 'so that I am informed, I would like a message when no bikes are available' do
     expect { station.release_bike }.to raise_error 'Cannot release bike: none availble'
+  end
+
+  # As a maintainer of the system,
+  # So that I can control the distribution of bikes,
+  # I'd like docking stations not to accept more bikes than their capacity.
+  it 'so that I can control distribution, I would like a message when that
+      docking station is full to capacity' do
+    station.read_capacity.times { station.dock bike }
+    expect { station.dock bike }.to raise_error 'Cannot dock bike: station is full to capacity'
   end
 end

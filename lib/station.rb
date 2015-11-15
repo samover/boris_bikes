@@ -2,9 +2,11 @@ class Station
 
   def initialize
     @docker = []
+    @capacity = 20
   end
 
   def dock bike
+    fail 'Cannot dock bike: station is full to capacity' if full?
     docker << bike
   end
 
@@ -17,11 +19,19 @@ class Station
     docker
   end
 
+  def read_capacity
+    capacity
+  end
+
   private
-  attr_reader :docker
+  attr_reader :docker, :capacity
 
   def empty?
     bikes.empty?
+  end
+
+  def full?
+    bikes.length >= read_capacity
   end
 
 end

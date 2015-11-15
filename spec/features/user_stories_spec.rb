@@ -1,11 +1,3 @@
-
-
-#
-# As a maintainer of the system,
-# So that I can manage broken bikes and not disappoint users,
-# I'd like vans to collect working bikes from garages and distribute them to docking stations.
-
-
 describe 'User Stories' do
 
   let(:station) { Station.new }
@@ -124,5 +116,23 @@ describe 'User Stories' do
     expect(garage.bikes).to eq broken_bikes
     garage.fix_bikes
     garage.bikes.each { |bike| expect(bike).to be_working }
+  end
+
+  # As a maintainer of the system,
+  # So that I can manage broken bikes and not disappoint users,
+  # I'd like vans to collect working bikes from garages and distribute them to docking stations.
+  it 'so to manage broken bikes, I would like vans to collect them from garage
+      and deliver them to docking station' do
+    bikes = Array.new(5, Bike.new)
+    garage.receive bikes
+    van.collect_working_bikes garage
+
+    expect(garage.bikes).to be_empty
+    expect(van.bikes).to eq bikes
+
+    van.distribute_bikes station
+
+    expect(van.bikes).to be_empty
+    expect(station.bikes).to eq bikes
   end
 end

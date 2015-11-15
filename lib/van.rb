@@ -21,6 +21,15 @@ class Van
     self.trailer = []
   end
 
+  def collect_working_bikes garage
+    garage.release_bikes.each { |bike| trailer << bike }
+  end
+
+  def distribute_bikes station
+    bikes.each { |bike| station.dock bike }
+    empty_trailer
+  end
+
   private
   attr_reader :trailer
   attr_accessor :trailer

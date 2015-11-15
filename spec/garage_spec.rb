@@ -19,4 +19,13 @@ describe Garage do
       garage.bikes.each { |bike| expect(bike).to be_working }
     end
   end
+
+  context '#release_bikes' do
+    it 'releases fixed bixes to a van' do
+      garage.receive bikes
+      garage.fix_bikes
+      garage.release_bikes
+      expect(garage.bikes).to be_empty
+    end
+  end
 end

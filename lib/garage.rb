@@ -16,6 +16,16 @@ class Garage
     bikes.each { |bike| bike.report_working }
   end
 
+  def release_bikes
+    empty_workfloor
+  end
+
   private
-  attr_reader :work_floor
+  attr_accessor :work_floor
+
+  def empty_workfloor
+    fixed_bikes = work_floor
+    self.work_floor = []
+    fixed_bikes
+  end
 end

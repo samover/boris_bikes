@@ -11,6 +11,11 @@ describe Station do
       it "has a default capacity of #{Station::DEF_CAPACITY}" do
         expect(station.read_capacity).to eq Station::DEF_CAPACITY
       end
+
+      it 'can have another capacity' do
+        larger_station = Station.new(capacity: 30)
+        expect(larger_station.read_capacity).to eq 30
+      end
   end
 
   context '#release_bike' do

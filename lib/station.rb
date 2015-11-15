@@ -2,9 +2,9 @@ class Station
 
   DEF_CAPACITY = 20
 
-  def initialize
+  def initialize(capacity: DEF_CAPACITY)
     @docker = []
-    @capacity = DEF_CAPACITY
+    @capacity = capacity
   end
 
   def dock bike

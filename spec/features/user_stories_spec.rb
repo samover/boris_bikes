@@ -1,7 +1,5 @@
 
-# As a system maintainer,
-# So that busy areas can be served more effectively,
-# I want to be able to specify a larger capacity when necessary.
+
 #
 # As a member of the public,
 # So that I reduce the chance of getting a broken bike in future,
@@ -81,5 +79,13 @@ describe 'User Stories' do
   # I want a docking station to have a default capacity of 20 bikes.
   it "so that I can plan distribution, I want a default capacity of #{Station::DEF_CAPACITY}" do
     expect(station.read_capacity).to eq Station::DEF_CAPACITY
+  end
+
+  # As a system maintainer,
+  # So that busy areas can be served more effectively,
+  # I want to be able to specify a larger capacity when necessary.
+  it 'so that I can customize new station, I can specify another capacity' do
+    station = Station.new(capacity: 50)
+    expect(station.read_capacity).to eq 50
   end
 end

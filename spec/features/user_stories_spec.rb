@@ -1,9 +1,5 @@
 
 # As a system maintainer,
-# So that I can plan the distribution of bikes,
-# I want a docking station to have a default capacity of 20 bikes.
-#
-# As a system maintainer,
 # So that busy areas can be served more effectively,
 # I want to be able to specify a larger capacity when necessary.
 #
@@ -78,5 +74,12 @@ describe 'User Stories' do
       docking station is full to capacity' do
     station.read_capacity.times { station.dock bike }
     expect { station.dock bike }.to raise_error 'Cannot dock bike: station is full to capacity'
+  end
+
+  # As a system maintainer,
+  # So that I can plan the distribution of bikes,
+  # I want a docking station to have a default capacity of 20 bikes.
+  it "so that I can plan distribution, I want a default capacity of #{Station::DEF_CAPACITY}" do
+    expect(station.read_capacity).to eq Station::DEF_CAPACITY
   end
 end

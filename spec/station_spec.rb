@@ -7,6 +7,10 @@ describe Station do
       it 'has a set capacity' do
         expect(station).to respond_to(:read_capacity)
       end
+
+      it "has a default capacity of #{Station::DEF_CAPACITY}" do
+        expect(station.read_capacity).to eq Station::DEF_CAPACITY
+      end
   end
 
   context '#release_bike' do

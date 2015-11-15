@@ -10,4 +10,11 @@ describe Station do
       expect(station.release_bike).to eq bike
     end
   end
+
+  context '#dock' do
+    it 'docks a bike' do
+      station.dock bike
+      expect(station.bikes).to include bike
+    end
+  end
 end

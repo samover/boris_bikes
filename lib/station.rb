@@ -1,6 +1,6 @@
 class Station
   attr_reader :docker
-  
+
   def initialize
     @docker = []
   end
@@ -11,6 +11,10 @@ class Station
 
   def release_bike
     docker.pop
+  end
+
+  def bikes
+    docker
   end
 
 end

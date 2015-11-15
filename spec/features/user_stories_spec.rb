@@ -1,7 +1,5 @@
 
-# As a member of the public
-# So I can return bikes I've hired
-# I want to dock my bike at the docking station
+
 #
 # As a member of the public
 # So I can decide whether to use the docking station
@@ -62,6 +60,16 @@ describe 'User Stories' do
   it 'so that I can use a good bike, I like to see it is working' do
     bike = Bike.new
     expect(bike).to be_working
+  end
+
+  # As a member of the public
+  # So I can return bikes I've hired
+  # I want to dock my bike at the docking station
+  it 'so that I can return a bike, I want to dock by bike at a station' do
+    station = Station.new
+    bike = Bike.new
+    station.dock bike
+    expect(station.bikes).to include bike
   end
 
 end

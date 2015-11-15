@@ -9,6 +9,10 @@ describe Station do
       station.dock bike
       expect(station.release_bike).to eq bike
     end
+
+    it 'gives error message when none available' do
+      expect { station.release_bike }.to raise_error 'Cannot release bike: none availble'
+    end
   end
 
   context '#dock' do

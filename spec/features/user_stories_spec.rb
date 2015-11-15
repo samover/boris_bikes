@@ -45,7 +45,7 @@ describe 'User Stories' do
   # So that I am not confused and charged unnecessarily,
   # I'd like docking stations not to release bikes when there are none available.
   it 'so that I am informed, I would like a message when no bikes are available' do
-    expect { station.release_bike }.to raise_error 'Cannot release bike: none available'
+    expect { station.remove_bike }.to raise_error 'Cannot release bike: none available in Station'
   end
 
   # As a maintainer of the system,
@@ -53,15 +53,15 @@ describe 'User Stories' do
   # I'd like docking stations not to accept more bikes than their capacity.
   it 'so that I can control distribution, I would like a message when that
       docking station is full to capacity' do
-    station.read_capacity.times { station.dock bike }
-    expect { station.dock bike }.to raise_error 'Cannot dock bike: station is full to capacity'
+    station.capacity.times { station.dock bike }
+    expect { station.dock bike }.to raise_error 'Cannot dock bike: Station is full to capacity'
   end
 
   # As a system maintainer,
   # So that I can plan the distribution of bikes,
   # I want a docking station to have a default capacity of 20 bikes.
-  it "so that I can plan distribution, I want a default capacity of #{Station::DEF_CAPACITY}" do
-    expect(station.read_capacity).to eq Station::DEF_CAPACITY
+  it "so that I can plan distribution, I want a default capacity of #{Station::DEFAULT_CAPACITY}" do
+    expect(station.capacity).to eq Station::DEFAULT_CAPACITY
   end
 
   # As a system maintainer,
@@ -69,7 +69,7 @@ describe 'User Stories' do
   # I want to be able to specify a larger capacity when necessary.
   it 'so that I can customize new station, I can specify another capacity' do
     station = Station.new(capacity: 50)
-    expect(station.read_capacity).to eq 50
+    expect(station.capacity).to eq 50
   end
 
   # As a member of the public,
@@ -85,7 +85,7 @@ describe 'User Stories' do
   # I'd like docking stations not to release broken bikes.
   it 'so not to disappoint users, stations do not release broken bikes' do
     station.dock broken_bike
-    expect { station.release_bike }.to raise_error 'Cannot release bike: none available'
+    expect { station.release_bike }.to raise_error 'Cannot release bike: none available in Station'
     station.dock bike
     expect(station.release_bike).to be_working
   end

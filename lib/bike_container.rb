@@ -22,10 +22,9 @@ module BikeContainer
     bikes.pop
   end
 
-
   private
-  attr_reader :docker, :container
-
+  attr_accessor :container
+  
   def full?
     bikes.length >= capacity
   end

@@ -5,17 +5,14 @@ describe Station do
   let(:broken_bike) { double(:bike, working?: false) }
 
   context '#initialize' do
-      it 'has a set capacity' do
-        expect(station).to respond_to(:read_capacity)
-      end
 
-      it "has a default capacity of #{Station::DEF_CAPACITY}" do
-        expect(station.read_capacity).to eq Station::DEF_CAPACITY
+      it "has a default capacity of #{Station::DEFAULT_CAPACITY}" do
+        expect(station.capacity).to eq Station::DEFAULT_CAPACITY
       end
 
       it 'can have another capacity' do
         larger_station = Station.new(capacity: 30)
-        expect(larger_station.read_capacity).to eq 30
+        expect(larger_station.capacity).to eq 30
       end
   end
 
@@ -27,7 +24,7 @@ describe Station do
     end
 
     it 'raises error when none available' do
-      expect { station.release_bike }.to raise_error 'Cannot release bike: none available'
+      expect { station.release_bike }.to raise_error 'Cannot release bike: none available in Station'
     end
   end
 
@@ -37,8 +34,8 @@ describe Station do
     end
 
     it 'raises error when station is full' do
-      station.read_capacity.times { station.dock bike }
-      expect { station.dock bike }.to raise_error 'Cannot dock bike: station is full to capacity'
+      station.capacity.times { station.dock bike }
+      expect { station.dock bike }.to raise_error 'Cannot dock bike: Station is full to capacity'
     end
   end
 
@@ -56,4 +53,6 @@ describe Station do
       expect(station.release_broken_bikes).to eq broken_bikes
     end
   end
+
+  it_behaves_like BikeContainer
 end

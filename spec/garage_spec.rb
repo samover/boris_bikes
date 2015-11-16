@@ -6,7 +6,7 @@ describe Garage do
 
   context '#receive' do
     it 'receives a delivery of broken bikes' do
-      garage.receive bikes
+      bikes.each { |bike| garage.receive bike }
       expect(garage.bikes).to eq bikes
     end
   end
@@ -14,7 +14,7 @@ describe Garage do
   context '#fix_bikes' do
     it 'fixes all the bikes' do
       allow(broken_bike).to receive(:working?).and_return(true)
-      garage.receive bikes
+      bikes.each { |bike| garage.receive bike }
       garage.fix_bikes
       garage.bikes.each { |bike| expect(bike).to be_working }
     end
@@ -22,10 +22,12 @@ describe Garage do
 
   context '#release_bikes' do
     it 'releases fixed bixes to a van' do
-      garage.receive bikes
+      bikes.each { |bike| garage.receive bike }
       garage.fix_bikes
       garage.release_bikes
       expect(garage.bikes).to be_empty
     end
   end
+
+  it_behaves_like BikeContainer
 end

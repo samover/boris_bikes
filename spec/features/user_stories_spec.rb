@@ -124,7 +124,7 @@ describe 'User Stories' do
   it 'so to manage broken bikes, I would like vans to collect them from garage
       and deliver them to docking station' do
     bikes = Array.new(5, Bike.new)
-    garage.receive bikes
+    bikes.each { |bike| garage.receive bike }
     van.collect_working_bikes garage
 
     expect(garage.bikes).to be_empty

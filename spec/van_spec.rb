@@ -45,4 +45,6 @@ describe Van do
       expect(loaded_van.bikes).to be_empty
     end
   end
+
+  it_behaves_like BikeContainer
 end

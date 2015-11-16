@@ -1,15 +1,8 @@
 class Garage
+  include BikeContainer
 
-  def initialize
-    @work_floor = []
-  end
-
-  def bikes
-    work_floor
-  end
-
-  def receive bikes
-    bikes.each { |bike| work_floor << bike }
+  def receive bike
+    add bike
   end
 
   def fix_bikes
@@ -17,15 +10,13 @@ class Garage
   end
 
   def release_bikes
-    empty_workfloor
+    empty_garage
   end
 
   private
-  attr_accessor :work_floor
-
-  def empty_workfloor
-    fixed_bikes = work_floor
-    self.work_floor = []
+  def empty_garage
+    fixed_bikes = container
+    self.container = []
     fixed_bikes
   end
 end

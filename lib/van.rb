@@ -1,36 +1,26 @@
 class Van
-
-  def initialize
-    @trailer = []
-  end
+  include BikeContainer
 
   def collect_broken_bikes station
-    station.release_broken_bikes.each { |bike| trailer << bike }
-  end
-
-  def bikes
-    trailer
+    station.release_broken_bikes.each { |bike| container << bike }
   end
 
   def deliver_broken_bikes garage
-    garage.receive bikes
-    empty_trailer
-  end
-
-  def empty_trailer
-    self.trailer = []
+    bikes.each { |bike| garage.receive bike }
+    empty_van
   end
 
   def collect_working_bikes garage
-    garage.release_bikes.each { |bike| trailer << bike }
+    garage.release_bikes.each { |bike| container << bike }
   end
 
   def distribute_bikes station
     bikes.each { |bike| station.dock bike }
-    empty_trailer
+    empty_van
   end
 
   private
-  attr_reader :trailer
-  attr_accessor :trailer
+  def empty_van
+    self.container = []
+  end
 end

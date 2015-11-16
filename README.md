@@ -1,4 +1,4 @@
-# Boris Bikes Challenge
+[![Build Status](https://travis-ci.org/samover/boris_bikes.svg?branch=master)](https://travis-ci.org/samover/boris_bikes)[![Coverage Status](https://coveralls.io/repos/samover/boris_bikes/badge.svg?branch=master&service=github)](https://coveralls.io/github/samover/boris_bikes?branch=master)# Boris Bikes Challenge
 First week challenge at [Makers Academy](www.makersacademy.com). 
 
 This is an introduction to OOP, TDD and pair programming, following the agile methodology taught at Makers. 

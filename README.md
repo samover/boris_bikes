@@ -3,7 +3,7 @@ First week challenge at [Makers Academy](www.makersacademy.com).
 
 This is an introduction to OOP, TDD and pair programming, following the agile methodology taught at Makers. 
 
-The project consists in writing an app for a Boris Bikes docking station:
+The project consists in writing an app for a Boris Bikes docking station. Module mixins are used for refactoring at the end.
 
 User stories to implement
 -------------------------

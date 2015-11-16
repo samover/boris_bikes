@@ -1,30 +1,28 @@
 describe Station do
-
   subject(:station) { described_class.new }
   let(:bike) { double(:bike, working?: true) }
-  let(:broken_bike) { double(:bike, working?: false) }
+  let(:broken_bike) { double(:bike, working?: false, broken?: true) }
 
   context '#initialize' do
+    it "has a default capacity of #{Station::DEFAULT_CAPACITY}" do
+      expect(station.capacity).to eq Station::DEFAULT_CAPACITY
+    end
 
-      it "has a default capacity of #{Station::DEFAULT_CAPACITY}" do
-        expect(station.capacity).to eq Station::DEFAULT_CAPACITY
-      end
-
-      it 'can have another capacity' do
-        larger_station = Station.new(capacity: 30)
-        expect(larger_station.capacity).to eq 30
-      end
+    it 'can have another capacity' do
+      larger_station = Station.new(capacity: 30)
+      expect(larger_station.capacity).to eq 30
+    end
   end
 
   context '#release_bike' do
-
     it 'releases a bike' do
       station.dock bike
       expect(station.release_bike).to eq bike
     end
 
     it 'raises error when none available' do
-      expect { station.release_bike }.to raise_error 'Cannot release bike: none available in Station'
+      message = 'Cannot release bike: none available in Station'
+      expect { station.release_bike }.to raise_error message
     end
   end
 
@@ -34,8 +32,9 @@ describe Station do
     end
 
     it 'raises error when station is full' do
+      message = 'Cannot dock bike: Station is full to capacity'
       station.capacity.times { station.dock bike }
-      expect { station.dock bike }.to raise_error 'Cannot dock bike: Station is full to capacity'
+      expect { station.dock bike }.to raise_error message
     end
   end
 

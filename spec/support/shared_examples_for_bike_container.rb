@@ -1,5 +1,4 @@
 shared_examples_for BikeContainer do
-
   subject(:bike_container) { described_class.new }
   let(:bike) { double(:bike) }
 
@@ -28,7 +27,6 @@ shared_examples_for BikeContainer do
   end
 
   context '#remove_bike' do
-
     before(:each) { bike_container.add bike }
 
     it 'returns a bike' do
@@ -46,5 +44,4 @@ shared_examples_for BikeContainer do
       expect { bike_container.remove_bike }.to raise_error message
     end
   end
-
 end

@@ -1,11 +1,15 @@
+# Bike Class
 class Bike
-
   def initialize
     @working_order = true
   end
 
   def working?
     working_order
+  end
+
+  def broken?
+    !working_order
   end
 
   def report_broken
@@ -19,5 +23,6 @@ class Bike
   end
 
   private
+
   attr_accessor :working_order
 end

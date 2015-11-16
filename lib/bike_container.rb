@@ -1,3 +1,4 @@
+# BikeContainer module
 module BikeContainer
   attr_reader :capacity
 
@@ -12,7 +13,7 @@ module BikeContainer
     container
   end
 
-  def add bike
+  def add(bike)
     fail "Cannot dock bike: #{self.class.name} is full to capacity" if full?
     container << bike
   end
@@ -23,8 +24,9 @@ module BikeContainer
   end
 
   private
+
   attr_accessor :container
-  
+
   def full?
     bikes.length >= capacity
   end

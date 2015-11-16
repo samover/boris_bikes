@@ -1,7 +1,6 @@
 describe Garage do
-
   subject(:garage) { described_class.new }
-  let(:broken_bike) { double(:bike, working?: false, report_working: true)}
+  let(:broken_bike) { double(:bike, working?: false, report_working: true) }
   let(:bikes) { [broken_bike, broken_bike, broken_bike, broken_bike] }
 
   context '#receive' do

@@ -1,16 +1,15 @@
 describe Van do
-
   subject(:loaded_van) { described_class.new }
   subject(:empty_van) { described_class.new }
 
   let(:station) { double(:station, bikes: bikes, release_broken_bikes: bikes) }
   let(:bike) { double(:bike, working?: false) }
-  let(:garage) { double(:garage, receive: bikes, release_bikes: bikes, dock: true) }
-  let(:bikes) { [bike, bike, bike, bike, bike]}
-
-  before do
-    loaded_van.collect_broken_bikes station
+  let(:bikes) { [bike, bike, bike, bike, bike] }
+  let(:garage) do
+    double(:garage, receive: bikes, release_bikes: bikes, dock: true)
   end
+
+  before(:each) { loaded_van.collect_broken_bikes station }
 
   context '#bikes' do
     it 'shows the bikes in the trailer' do

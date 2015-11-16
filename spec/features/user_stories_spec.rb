@@ -1,14 +1,11 @@
 describe 'User Stories' do
-
   let(:station) { Station.new }
   let(:bike) { Bike.new }
-  let(:broken_bike) { Bike.new}
+  let(:broken_bike) { Bike.new }
   let(:van) { Van.new }
   let(:garage) { Garage.new }
 
-  before do
-    broken_bike.report_broken
-  end
+  before(:each) { broken_bike.report_broken }
 
   # As a person,
   # So that I can use a bike,
@@ -43,9 +40,11 @@ describe 'User Stories' do
 
   # As a member of the public,
   # So that I am not confused and charged unnecessarily,
-  # I'd like docking stations not to release bikes when there are none available.
-  it 'so that I am informed, I would like a message when no bikes are available' do
-    expect { station.remove_bike }.to raise_error 'Cannot release bike: none available in Station'
+  # I'd like docking stations not to release bikes when there are none available
+  it 'so that I am informed, I would like a message
+      when no bikes are available' do
+    message = 'Cannot release bike: none available in Station'
+    expect { station.remove_bike }.to raise_error message
   end
 
   # As a maintainer of the system,
@@ -53,14 +52,16 @@ describe 'User Stories' do
   # I'd like docking stations not to accept more bikes than their capacity.
   it 'so that I can control distribution, I would like a message when that
       docking station is full to capacity' do
+    message = 'Cannot dock bike: Station is full to capacity'
     station.capacity.times { station.dock bike }
-    expect { station.dock bike }.to raise_error 'Cannot dock bike: Station is full to capacity'
+    expect { station.dock bike }.to raise_error message
   end
 
   # As a system maintainer,
   # So that I can plan the distribution of bikes,
   # I want a docking station to have a default capacity of 20 bikes.
-  it "so that I can plan distribution, I want a default capacity of #{Station::DEFAULT_CAPACITY}" do
+  it "so that I can plan distribution, I want
+      a default capacity of #{Station::DEFAULT_CAPACITY}" do
     expect(station.capacity).to eq Station::DEFAULT_CAPACITY
   end
 
@@ -84,8 +85,9 @@ describe 'User Stories' do
   # So that I can manage broken bikes and not disappoint users,
   # I'd like docking stations not to release broken bikes.
   it 'so not to disappoint users, stations do not release broken bikes' do
+    message = 'Cannot release bike: none available in Station'
     station.dock broken_bike
-    expect { station.release_bike }.to raise_error 'Cannot release bike: none available in Station'
+    expect { station.release_bike }.to raise_error message
     station.dock bike
     expect(station.release_bike).to be_working
   end
@@ -100,11 +102,13 @@ describe 'User Stories' do
 
   # As a maintainer of the system,
   # So that I can manage broken bikes and not disappoint users,
-  # I'd like vans to take broken bikes from docking stations and deliver them to garages to be fixed.
-  it 'so to manage broken bikes, a van can pick up broken bikes and deliver them to garage to be fixed' do
+  # I'd like vans to take broken bikes from docking stations
+  # and deliver them to garages to be fixed.
+  it 'so to manage broken bikes, a van can pick up broken bikes
+      and deliver them to garage to be fixed' do
     5.times { station.dock Bike.new.report_broken }
     5.times { station.dock Bike.new }
-    working_bikes = station.bikes.select { |bike| bike.working? }
+    working_bikes = station.bikes.select(&:working?)
     broken_bikes = station.bikes - working_bikes
 
     van.collect_broken_bikes(station)
@@ -120,7 +124,8 @@ describe 'User Stories' do
 
   # As a maintainer of the system,
   # So that I can manage broken bikes and not disappoint users,
-  # I'd like vans to collect working bikes from garages and distribute them to docking stations.
+  # I'd like vans to collect working bikes from garages
+  # and distribute them to docking stations.
   it 'so to manage broken bikes, I would like vans to collect them from garage
       and deliver them to docking station' do
     bikes = Array.new(5, Bike.new)

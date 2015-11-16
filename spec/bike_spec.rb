@@ -1,5 +1,4 @@
 describe Bike do
-
   subject(:bike) { described_class.new }
 
   context '#working?' do

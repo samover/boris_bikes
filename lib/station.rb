@@ -1,14 +1,16 @@
 require_relative 'bike_container'
 
+# Station Class
 class Station
   include BikeContainer
 
-  def dock bike
+  def dock(bike)
     add bike
   end
 
   def release_bike
-    fail 'Cannot release bike: none available in Station' if working_bikes.empty?
+    message = 'Cannot release bike: none available in Station'
+    fail message if working_bikes.empty?
     bikes.delete(working_bikes.pop)
   end
 
@@ -19,12 +21,12 @@ class Station
   end
 
   private
+
   def working_bikes
-    bikes.select { |bike| bike.working? }
+    bikes.select(&:working?)
   end
 
   def broken_bikes
-    bikes.select { |bike| !bike.working? }
+    bikes.select(&:broken?)
   end
-
 end

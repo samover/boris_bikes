@@ -3,6 +3,8 @@ require 'bike'
 require 'van'
 require 'garage'
 require 'bike_container'
+require 'coveralls'
+Coveralls.wear!
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|
